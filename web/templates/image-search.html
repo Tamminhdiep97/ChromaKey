@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="static/custom.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <h1>CHROMA-KEY</h1>
+    </header>
+    <div class="img_search">
+        <form action="/image-search" method=post enctype=multipart/form-data>
+            <div>Select an Original Image: <input type="file" name="file_original"></div>
+            </br>
+
+            <div>Select an Background: <input type="file" name="file_background"></div>
+            </br>
+            <div>Pixel (optional, default value is 0):
+                <div>x1:<input type="text" name="col1" value=0></div>
+                <div>y1:<input type="text" name="rol1" value=0></div>
+                <div>x2:<input type="text" name="col2" value=0></div>
+                <div>y2:<input type="text" name="rol2" value=0></div>
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    {% if files %}
+    <div class="result">
+        <ul class="ul_result">
+            {% for file in files %} {% set file = file | replace("static/", "") | replace('\\', '/') | replace("['","") | replace("']","")%}
+            <li><img src="{{ url_for('static', filename=file) }}"></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</body>
+
+</html>
